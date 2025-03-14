@@ -1,19 +1,17 @@
 import { Webhook } from "svix";
 import { headers } from "next/headers";
-import { users } from "@/db/schema";
 import { WebhookEvent } from "@clerk/nextjs/server";
-import db from "@/db";
 
 export async function POST(req: Request) {
-  const USERS_SIGNING_SECRET = process.env.USERS_SIGNING_SECRET;
+  const SESSIONS_SIGNING_SECRET = process.env.SESSIONS_SIGNING_SECRET;
 
-  if (!USERS_SIGNING_SECRET) {
+  if (!SESSIONS_SIGNING_SECRET) {
     throw new Error(
       "Error: Please add SIGNING_SECRET from Clerk Dashboard to .env or .env",
     );
   }
 
-  const wh = new Webhook(USERS_SIGNING_SECRET);
+  const wh = new Webhook(SESSIONS_SIGNING_SECRET);
 
   const headerPayload = await headers();
   const svix_id = headerPayload.get("svix-id");
@@ -46,33 +44,8 @@ export async function POST(req: Request) {
 
   const type = evt.type;
   switch (type) {
-    case "user.created":
-      let {
-        id,
-        email_addresses,
-        first_name: firstName,
-        last_name: lastName,
-        has_image,
-        image_url,
-      } = evt.data;
-
-      if (!firstName) {
-        firstName = "";
-      }
-
-      if (!lastName) {
-        lastName = "";
-      }
-
-      await db.insert(users).values({
-        clerkId: id,
-        email: email_addresses[0].email_address,
-        firstName,
-        lastName,
-        profileImage: has_image ? image_url : null,
-      });
-
-      return new Response("User created", { status: 200 });
+    case "session.created":
+      break;
   }
 
   return new Response("Webhook received", { status: 200 });

@@ -1,4 +1,4 @@
-import { sql } from "drizzle-orm";
+import { InferInsertModel, InferSelectModel, sql } from "drizzle-orm";
 import {
   pgEnum,
   pgTable,
@@ -69,3 +69,15 @@ export const applications = pgTable("applications", {
   status: varchar("status", { length: 255 }).notNull(),
   ...timestampFields,
 });
+
+export type UserSelect = InferSelectModel<typeof users>;
+export type UserInsert = InferInsertModel<typeof users>;
+
+export type ResumeSelect = InferSelectModel<typeof resumes>;
+export type ResumeInsert = InferInsertModel<typeof resumes>;
+
+export type JobPostingSelect = InferSelectModel<typeof jobPostings>;
+export type JobPostingInsert = InferInsertModel<typeof jobPostings>;
+
+export type ApplicationSelect = InferSelectModel<typeof applications>;
+export type ApplicationInsert = InferInsertModel<typeof applications>;

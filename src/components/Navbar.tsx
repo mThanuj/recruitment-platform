@@ -9,10 +9,10 @@ export default function Navbar() {
       </div>
       <div className="space-x-4 flex items-center">
         <Link href="/recruiter-dashboard" className="hover:text-blue-600">
-          Dashboard
+          Recruiter Dashboard
         </Link>
         <Link href="/candidate-portal" className="hover:text-blue-600">
-          Portal
+          Candidate Portal
         </Link>
         <UserButton />
       </div>

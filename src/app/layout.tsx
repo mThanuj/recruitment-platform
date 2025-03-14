@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
 import Navbar from "@/components/Navbar";
+import LogoutListener from "@/components/LogoutListener";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -20,13 +21,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <Providers>
-      <html lang="en">
-        <body className={`${inter.className} antialiased w-screen h-screen`}>
+    <html lang="en">
+      <body className={`${inter.className} antialiased w-screen h-screen`}>
+        <Providers>
+          <LogoutListener />
           <Navbar />
           <div className="mt-[75px] ml-[20px]">{children}</div>
-        </body>
-      </html>
-    </Providers>
+        </Providers>
+      </body>
+    </html>
   );
 }
