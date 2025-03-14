@@ -4,6 +4,7 @@ import "./globals.css";
 import Providers from "./providers";
 import Navbar from "@/components/Navbar";
 import LogoutListener from "@/components/LogoutListener";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -21,12 +22,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} antialiased w-screen h-screen`}>
         <Providers>
           <LogoutListener />
           <Navbar />
           <div className="pt-[75px] p-[20px]">{children}</div>
+          <Toaster />
         </Providers>
       </body>
     </html>

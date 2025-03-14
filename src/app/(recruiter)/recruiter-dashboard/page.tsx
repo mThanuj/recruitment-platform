@@ -2,12 +2,13 @@
 
 import Loader from "@/components/Loader";
 import NewRecruiter from "../components/NewRecruiter";
-import { fetchUserData } from "@/lib/api";
+import { fetchUserData } from "@/lib/api/user";
 import { addSession } from "@/redux/slices/sessionSlice";
 import { RootState } from "@/redux/store";
 import { useAuth } from "@clerk/nextjs";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Link from "next/link";
 
 const Page = () => {
   const { session } = useSelector((state: RootState) => state.session);
@@ -39,11 +40,12 @@ const Page = () => {
 
   return (
     <div>
-      <ul>
-        <li>Option to create a job posting</li>
-        <li>Candidate Application Track</li>
-        <li>Analytics for each job posting by me</li>
-      </ul>
+      <button>
+        <Link href={"/create-job-posting"}>Create Job Posting</Link>
+      </button>
+      <button>
+        <Link href={"/my-job-postings"}>View My Job Postings</Link>
+      </button>
     </div>
   );
 };

@@ -15,6 +15,20 @@
       "when": 1741948186717,
       "tag": "0001_spotty_blink",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1741951448855,
+      "tag": "0002_white_alice",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1741952233233,
+      "tag": "0003_awesome_miek",
+      "breakpoints": true
     }
   ]
 }

@@ -20,7 +20,7 @@ import SignatureInput from "@/components/ui/signature-input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import { makeUserRecruiter } from "@/lib/api";
+import { makeUserRecruiter } from "@/lib/api/user";
 import { useRouter } from "next/navigation";
 import Loader from "@/components/Loader";
 

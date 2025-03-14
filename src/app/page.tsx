@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addSession } from "@/redux/slices/sessionSlice";
 import { useAuth } from "@clerk/nextjs";
-import { fetchUserData } from "@/lib/api";
+import { fetchUserData } from "@/lib/api/user";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";

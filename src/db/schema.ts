@@ -1,5 +1,6 @@
 import { InferInsertModel, InferSelectModel, sql } from "drizzle-orm";
 import {
+  index,
   pgEnum,
   pgTable,
   text,
@@ -17,19 +18,23 @@ const timestampFields = {
 
 export const userRoles = pgEnum("userRoles", ["candidate", "recruiter"]);
 
-export const users = pgTable("users", {
-  id: uuid().primaryKey().defaultRandom(),
-  clerkId: varchar("clerk_id", { length: 255 }),
-  email: varchar("email", { length: 255 }).notNull().unique(),
-  firstName: varchar("first_name", { length: 255 }).notNull(),
-  lastName: varchar("last_name", { length: 255 }).notNull(),
-  role: userRoles().default("candidate"),
-  profileImage: varchar("profile_image", { length: 255 }),
-  companyName: varchar("company_name", { length: 255 }),
-  phone: varchar("phone", { length: 255 }),
-  signature: text(),
-  ...timestampFields,
-});
+export const users = pgTable(
+  "users",
+  {
+    id: uuid().primaryKey().defaultRandom(),
+    clerkId: varchar("clerk_id", { length: 255 }),
+    email: varchar("email", { length: 255 }).notNull().unique(),
+    firstName: varchar("first_name", { length: 255 }).notNull(),
+    lastName: varchar("last_name", { length: 255 }).notNull(),
+    role: userRoles().default("candidate"),
+    profileImage: varchar("profile_image", { length: 255 }),
+    companyName: varchar("company_name", { length: 255 }),
+    phone: varchar("phone", { length: 255 }),
+    signature: text(),
+    ...timestampFields,
+  },
+  (table) => [index("clerk_id_index").on(table.clerkId)],
+);
 
 export const resumes = pgTable("resumes", {
   id: uuid().primaryKey().defaultRandom(),
@@ -53,6 +58,11 @@ export const jobPostings = pgTable("job_postings", {
   salaryMin: varchar("salary_min", { length: 255 }).notNull(),
   salaryMax: varchar("salary_max", { length: 255 }).notNull(),
   employmentType: varchar("employment_type", { length: 255 }).notNull(),
+  tags: text("tags")
+    .array()
+    .notNull()
+    .default(sql`'{}'::text[]`),
+  deadline: timestamp("deadline", { mode: "string" }).notNull(),
   ...timestampFields,
 });
 
