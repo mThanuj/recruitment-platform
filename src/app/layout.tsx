@@ -26,7 +26,7 @@ export default function RootLayout({
         <Providers>
           <LogoutListener />
           <Navbar />
-          <div className="mt-[75px] ml-[20px]">{children}</div>
+          <div className="pt-[75px] p-[20px]">{children}</div>
         </Providers>
       </body>
     </html>

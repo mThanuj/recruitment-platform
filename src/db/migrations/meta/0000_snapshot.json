@@ -1,5 +1,5 @@
 {
-  "id": "36a85954-7462-43ea-acdb-4ac9cf87c194",
+  "id": "c601e5b7-c6b1-47d0-b5ac-454d17c5b6f2",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -66,8 +66,8 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
         },
         "applications_job_posting_id_job_postings_id_fk": {
           "name": "applications_job_posting_id_job_postings_id_fk",
@@ -79,8 +79,8 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
         }
       },
       "compositePrimaryKeys": {},
@@ -175,8 +175,8 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
         }
       },
       "compositePrimaryKeys": {},
@@ -241,8 +241,8 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
         }
       },
       "compositePrimaryKeys": {},
@@ -266,7 +266,7 @@
           "name": "clerk_id",
           "type": "varchar(255)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "email": {
           "name": "email",
@@ -291,10 +291,17 @@
           "type": "userRoles",
           "typeSchema": "public",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false,
+          "default": "'candidate'"
         },
         "profile_image": {
           "name": "profile_image",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "company_name": {
+          "name": "company_name",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": false
@@ -337,8 +344,7 @@
       "schema": "public",
       "values": [
         "candidate",
-        "recruiter",
-        "admin"
+        "recruiter"
       ]
     }
   },

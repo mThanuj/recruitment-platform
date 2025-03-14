@@ -15,11 +15,7 @@ const timestampFields = {
     .$onUpdate(() => sql`now() AT TIME ZONE 'UTC'`),
 };
 
-export const userRoles = pgEnum("userRoles", [
-  "candidate",
-  "recruiter",
-  "admin",
-]);
+export const userRoles = pgEnum("userRoles", ["candidate", "recruiter"]);
 
 export const users = pgTable("users", {
   id: uuid().primaryKey().defaultRandom(),
@@ -29,6 +25,9 @@ export const users = pgTable("users", {
   lastName: varchar("last_name", { length: 255 }).notNull(),
   role: userRoles().default("candidate"),
   profileImage: varchar("profile_image", { length: 255 }),
+  companyName: varchar("company_name", { length: 255 }),
+  phone: varchar("phone", { length: 255 }),
+  signature: text(),
   ...timestampFields,
 });
 
@@ -36,7 +35,7 @@ export const resumes = pgTable("resumes", {
   id: uuid().primaryKey().defaultRandom(),
   userId: uuid("user_id")
     .notNull()
-    .references(() => users.id),
+    .references(() => users.id, { onDelete: "cascade", onUpdate: "cascade" }),
   resumeText: text("resume_text").notNull(),
   processedText: text("processed_text"),
   ...timestampFields,
@@ -46,7 +45,7 @@ export const jobPostings = pgTable("job_postings", {
   id: uuid().primaryKey().defaultRandom(),
   recruiterId: uuid("recruiter_id")
     .notNull()
-    .references(() => users.id),
+    .references(() => users.id, { onDelete: "cascade", onUpdate: "cascade" }),
   title: varchar("title", { length: 255 }).notNull(),
   description: text("description").notNull(),
   requirements: text("requirements").notNull(),
@@ -61,10 +60,13 @@ export const applications = pgTable("applications", {
   id: uuid().primaryKey().defaultRandom(),
   candidateId: uuid("candidate_id")
     .notNull()
-    .references(() => users.id),
+    .references(() => users.id, { onDelete: "cascade", onUpdate: "cascade" }),
   jobPostingId: uuid("job_posting_id")
     .notNull()
-    .references(() => jobPostings.id),
+    .references(() => jobPostings.id, {
+      onDelete: "cascade",
+      onUpdate: "cascade",
+    }),
   feeeback: text("feedback"),
   status: varchar("status", { length: 255 }).notNull(),
   ...timestampFields,
