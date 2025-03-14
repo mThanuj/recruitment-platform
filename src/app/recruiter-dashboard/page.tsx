@@ -1,5 +1,5 @@
 const Page = () => {
-  return <div>page</div>;
+  return <div>Recruiter dashboard page</div>;
 };
 
 export default Page;
